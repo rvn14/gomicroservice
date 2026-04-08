@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/go-chi/chi/v5"
+    "github.com/go-chi/chi/v5/middleware"
 )
 
 var serverStartTime time.Time
@@ -40,6 +41,7 @@ func healthHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
     serverStartTime = time.Now()
     router:= chi.NewRouter()
+    router.Use(middleware.Logger)
     router.Get("/", basicHandler)
     router.Get("/health", healthHandler)
     server:= http.Server{
